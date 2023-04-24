@@ -79,6 +79,10 @@ export default {
         if (json) {
           this.$router.push('/').catch(err => {err});
           this.getHasRole(json.access_token);
+        }else{
+          this.navData.forEach(item => {
+            item.show = true;
+          })
         }
       });
     },
