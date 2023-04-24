@@ -56,7 +56,10 @@ export default {
   },
   mounted() {
     this.getPageRoute();
-    this.setPageNav();
+    // this.setPageNav();
+    this.navData.forEach(item => {
+        item.show = true;
+    })
   },
   methods: {
     loginUser() {
