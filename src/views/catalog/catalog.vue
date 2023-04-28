@@ -255,7 +255,7 @@
           })
         })
         this.$axios({
-          url: 'http://203.207.223.40:13202/catalog/rest/catalog/query',
+          url: 'http://127.0.0.1:18082/catalog/rest/catalog/query',
           method: 'POST',
           data: {
             "username":"guest",

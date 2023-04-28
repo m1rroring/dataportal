@@ -12,7 +12,7 @@
           <div class="u-cata-main">
             <div class="u-cata-header">
               <div class="title-content disflex js-between">
-                <div class="title pointer" :title="item.title" @click="popupDio(item)">{{item.title}}</div>
+                <div class="title pointer" :title="item.datasetName" @click="popupDio(item)">{{item.datasetName}}</div>
                 <div class="icon-box">
                   <div class="l-ask">
                     <span>访问量：0</span>
@@ -33,8 +33,12 @@
             </div>
             <div class="u-cata-body">
               <div class="u-cata-info">
-                <span>来源：{{item.ly}}</span>
-                <span :title="item.content">信息资源摘要：{{item.content}}</span>
+                <span>来源：{{item.distOrgName}}</span>
+                <div>
+                  <div class="u-cata-info">
+                    <span :title="item.abstract">数据集摘要：{{item.abstract}}</span>
+                  </div>
+                </div>
                 <div>
                   <div class="u-cata-info">
                     <span>发布日期：{{item.time}}</span>
@@ -114,7 +118,7 @@
         this.dialogVisible = true;
       },
       getContent() {
-        var ele = ["10.1.1","10.1.2","10.1.4"];
+        var ele = ["10.1.1","10.1.7","10.1.12"];
         var arr = [];
         ele.forEach(v => {
           arr.push({
@@ -122,19 +126,19 @@
           })
         })
         this.$axios({
-          url: 'http://203.207.223.40:13202/catalog/rest/catalog/query',
+          url: 'http://218.245.3.121:18082/catalog/rest/catalog/query',
           method: 'POST',
           data: {
             "username":"guest",
             "password":"guest",
             "protocolVersion":"4.1",
-            "databases":{"databaseId":["test"]},
+            "databases":{"databaseId":["healthCheck"]},
             "query":{
               "logicOperator":"Or",
               "simpleCondition": arr
             },
             "elementSet":{
-              "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.5","10.1.6","10.1.7","10.1.8","10.1.9","10.1.10"]
+              "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.7","10.1.9","10.1.10","10.1.11","10.1.12","10.1.13"]
             },
             "recordSetStartPoint":this.pageSize,
             "recordSetEndPoint":10
@@ -147,12 +151,17 @@
               var obj = {};
               item.itemList.items.forEach(v => {
                 obj['kf'] = '开放';
-                if (v.itemName == '10.1.2') obj['title'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.5') obj['time'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.6') obj['ly'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.4') obj['content'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.10') obj['url'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.9') obj['gx'] = v.itemValues.join(' ');
+                obj['gx'] = '共享';
+                if (v.itemName == '10.1.1') obj['datasetName'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.2') obj['datasetID'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.3') obj['datasetCode'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.4') obj['distOrgName'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.7') obj['keyword'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.9') obj['catalogLvl1'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.10') obj['catalogLvl2'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.11') obj['catalogLvl3'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.12') obj['abstract'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.13') obj['dataElement'] = v.itemValues.join(' ');
               })
               this.rightData.push(obj);
             })

@@ -3,62 +3,52 @@
     <el-dialog title="详情" :visible.sync="data.dialogVisible1" width="62%" center>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
-          <div class="dia-i-label">数据资源标题:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.title}}</div>
+          <div class="dia-i-label" style="color:#0f58af">数据集名称:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.datasetName}}</div>
         </div>
         <div class="dia-i-right">
-          <div class="dia-i-label">数据资源摘要:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.content}}</div>
+          <div class="dia-i-label" style="color:#0f58af">数据集标识符:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.datasetID}}</div>
         </div>
       </div>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
-          <div class="dia-i-label">发布⽇期:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.time}}</div>
+          <div class="dia-i-label" style="color:#0f58af">数据集编码:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.datasetCode}}</div>
         </div>
         <div class="dia-i-right">
-          <div class="dia-i-label">数据资源提供单位:</div>
-          <div class="dia-i-text"></div>
+          <div class="dia-i-label" style="color:#0f58af">数据集发布方:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.distOrgName}}</div>
         </div>
       </div>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
-          <div class="dia-i-label">数据资源提供单位部⻔:</div>
-          <div class="dia-i-text"></div>
+          <div class="dia-i-label" style="color:#0f58af">关键词:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.keyword}}</div>
         </div>
         <div class="dia-i-right">
-          <div class="dia-i-label">数据资源提供单位机构代码:</div>
-          <div class="dia-i-text"></div>
+          <div class="dia-i-label" style="color:#0f58af">数据集分类-一级类目名称:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.catalogLvl1}}</div>
         </div>
       </div>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
-          <div class="dia-i-label">数据内容说明:</div>
-          <div class="dia-i-text"></div>
+          <div class="dia-i-label" style="color:#0f58af">数据集分类-二级类目名称:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.catalogLvl2}}</div>
         </div>
         <div class="dia-i-right">
-          <div class="dia-i-label">数据类型:</div>
-          <div class="dia-i-text"></div>
+          <div class="dia-i-label" style="color:#0f58af">数据集分类-三级类目名称:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.catalogLvl3}}</div>
         </div>
       </div>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
-          <div class="dia-i-label">数据资源格式:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.gs}}</div>
+          <div class="dia-i-label" style="color:#0f58af">数据集摘要:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.abstract}}</div>
         </div>
         <div class="dia-i-right">
-          <div class="dia-i-label">数据资源共享类型:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.kf}}</div>
-        </div>
-      </div>
-      <div class="dia-item disflex js-between">
-        <div class="dia-i-left">
-          <div class="dia-i-label">数据资源共享⽅式:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.gx}}</div>
-        </div>
-        <div class="dia-i-right">
-          <div class="dia-i-label">在线服务地址:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.url}}</div>
+          <div class="dia-i-label" style="color:#0f58af">数据集特征数据元:</div>
+          <div class="dia-i-text">{{data.dialogVisible1Data.dataElement}}</div>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">

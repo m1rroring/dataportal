@@ -196,7 +196,7 @@
           </MetaData>`
         var data = {"password":"guest","protocolVersion":"4.1","username":"guest","databaseId":"test","operationType":"Insert","data": str}
         this.$axios({
-          url: 'http://203.207.223.40:13202/catalog/rest/catalog/manage',
+          url: 'http://218.245.3.121:18082/catalog/rest/catalog/manage',
           method: 'post',
           data
         }).then(json => {

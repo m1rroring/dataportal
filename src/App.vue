@@ -3,7 +3,10 @@
     <div class="header">
       <div class="head"></div>
     </div>
-    <Head :data="headData"></Head>
+<!--    <Head :data="headData">-->
+    <Head>
+      <title>健康体检数据集检索系统</title>
+    </Head>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="0">首页</el-menu-item>
       <el-menu-item v-for="(item, index) in navData" :key="index" :index="item.value" v-show="item.show == true">

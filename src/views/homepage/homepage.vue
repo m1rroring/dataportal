@@ -27,13 +27,13 @@ export default {
     return {
       activeIndex: '1',
       headData: {
-        title: '国家北⽃数据中⼼'
+        title: '健康体检数据集检索系统'
       },
     }
   },
   mounted() {
     this.getPageRoute();
-    this.$parent.headData.title = '国家北⽃数据中⼼';
+    this.$parent.headData.title = '健康体检数据集检索系统';
   },
   methods: {
     handleSelect(key) {
