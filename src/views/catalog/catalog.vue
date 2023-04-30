@@ -155,7 +155,8 @@
       }
     },
     mounted() {
-      this.getTreeInfo(1);
+      // this.getTreeInfo(1);
+      this.getTreeInfo(0);
     },
     methods: {
       popupDio(data) {
@@ -180,13 +181,16 @@
       async treeInfo() {
         this.breadcrumbArr = [];
         const data1 = await this.$axios({
-          url: '/ctree/v1/node/get/code/1'
+          // url: '/ctree/v1/node/get/code/1'
+          url: '/ctree/v1/node/get/code/0'
         });
         const data2 = await this.$axios({
-          url: '/ctree/v1/node/get/code/4'
+          // url: '/ctree/v1/node/get/code/4'
+          url: '/ctree/v1/node/get/code/0'
         });
         const data3 = await this.$axios({
-          url: '/ctree/v1/node/get/code/5'
+          // url: '/ctree/v1/node/get/code/5'
+          url: '/ctree/v1/node/get/code/0'
         });
         if (data1.childrens && data1.childrens.length > 0) {
           data1['isActive'] = true;
@@ -255,19 +259,22 @@
           })
         })
         this.$axios({
-          url: 'http://127.0.0.1:18082/catalog/rest/catalog/query',
+          // url: 'http://127.0.0.1:18082/catalog/rest/catalog/query',
+          url: 'http://218.245.3.121:16080/catalog/rest/catalog/query',
           method: 'POST',
           data: {
             "username":"guest",
             "password":"guest",
             "protocolVersion":"4.1",
-            "databases":{"databaseId":["test"]},
+            // "databases":{"databaseId":["test"]},
+            "databases":{"databaseId":["healthCheck"]},
             "query":{
               "logicOperator":"Or",
               "simpleCondition": arr
             },
             "elementSet":{
-              "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.5","10.1.6","10.1.7","10.1.8","10.1.9","10.1.10"]
+              // "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.5","10.1.6","10.1.7","10.1.8","10.1.9","10.1.10"]
+              "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.7","10.1.9","10.1.10","10.1.11","10.1.12","10.1.13"]
             },
             "recordSetStartPoint":this.pageSize,
             "recordSetEndPoint":10

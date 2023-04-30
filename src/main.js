@@ -10,7 +10,8 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 
-const baseUrl = 'http://203.207.223.40:13204';
+// const baseUrl = 'http://203.207.223.40:13204';
+const baseUrl = 'http://218.245.3.121:16080';
 const service = {
     ajax: (params) => {
       var param = {
