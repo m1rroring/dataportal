@@ -1,6 +1,6 @@
 <template>
   <div class="ditail">
-    <el-dialog title="详情" :visible.sync="data.dialogVisible1" width="62%" center>
+    <el-dialog title="数据集详情" :visible.sync="data.dialogVisible1" width="62%" color="#0f58af" center>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
           <div class="dia-i-label" style="color:#0f58af">数据集名称:</div>
@@ -51,10 +51,10 @@
           <div class="dia-i-text">{{data.dialogVisible1Data.dataElement}}</div>
         </div>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
+<!--      <span slot="footer" class="dialog-footer">-->
+<!--        <el-button @click="dialogVisible = false">取 消</el-button>-->
+<!--        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
+<!--      </span>-->
     </el-dialog>
   </div>
 </template>

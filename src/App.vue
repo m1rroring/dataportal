@@ -47,7 +47,7 @@ export default {
       pasd: '',
       headData: {
         title: '健康体检数据集检索系统',
-        name: ''
+        name: '健康体检数据集检索系统'
       },
       navData: [
         {name: '信息资源目录', value: '1',title: 'CATALOG_VIEW', show: false},

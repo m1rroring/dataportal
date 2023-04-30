@@ -43,7 +43,7 @@
           <div class="u-cata-main">
             <div class="u-cata-header">
               <div class="title-content disflex js-between">
-                <div class="title pointer" :title="item.title" @click="popupDio(item)">{{item.title}}</div>
+                <div class="title pointer" :title="item.datasetName" @click="popupDio(item)">{{item.datasetName}}</div>
                 <div class="icon-box">
                   <div class="l-ask">
                     <span>访问量：0</span>
@@ -64,11 +64,12 @@
             </div>
             <div class="u-cata-body">
               <div class="u-cata-info">
-                <span>来源：{{item.ly}}</span>
-                <span :title="item.content">信息资源摘要：{{item.content}}</span>
+                <span>来源：{{item.distOrgName}}</span>
+
                 <div>
                   <div class="u-cata-info">
-                    <span>发布日期：{{item.time}}</span>
+<!--                    <span>发布日期：{{item.time}}</span>-->
+                    <span :title="item.abstract">摘要：{{item.abstract}}</span>
                   </div>
                 </div>
               </div>
@@ -134,9 +135,9 @@
         imageUrl: '',
         breadcrumbArr: [],
         navData: [
-          {name: '政务信息资源分类', activeName: '1'},
-          {name: '⾏业信息资源分类', activeName: '2'},
-          {name: '出版信息资源分类', activeName: '3'},
+          {name: '健康体检数据集目录', activeName: '1'},
+          {name: '分类2', activeName: '2'},
+          {name: '分类3', activeName: '3'},
         ],
         defaultProps: {
           children: 'children',
@@ -173,7 +174,9 @@
         this.leftChooseIdArr = [];
         if (data2.childrens) {
           data2.childrens.forEach(v => {
-            this.leftChooseIdArr.push(v.code.split('.')[1])
+            // this.leftChooseIdArr.push(v.code.split('.')[1])
+            this.leftChooseIdArr.push(v.name)
+            // console.log(v.name);
           })
         }
         this.getRightInfo();
@@ -184,17 +187,18 @@
           // url: '/ctree/v1/node/get/code/1'
           url: '/ctree/v1/node/get/code/0'
         });
-        const data2 = await this.$axios({
-          // url: '/ctree/v1/node/get/code/4'
-          url: '/ctree/v1/node/get/code/0'
-        });
-        const data3 = await this.$axios({
-          // url: '/ctree/v1/node/get/code/5'
-          url: '/ctree/v1/node/get/code/0'
-        });
+        // const data2 = await this.$axios({
+        //   // url: '/ctree/v1/node/get/code/4'
+        //   url: '/ctree/v1/node/get/code/0'
+        // });
+        // const data3 = await this.$axios({
+        //   // url: '/ctree/v1/node/get/code/5'
+        //   url: '/ctree/v1/node/get/code/0'
+        // });
         if (data1.childrens && data1.childrens.length > 0) {
           data1['isActive'] = true;
           this.breadcrumbArr.push(data1.name);
+          console.log(data1);
           data1.childrens.forEach((v, i)=> {
             if (i == 0) {
               v['isActive'] = true;
@@ -206,22 +210,22 @@
             else v['isActive'] = false;
           })
         }
-        if (data2.childrens && data2.childrens.length > 0) {
-          data2['isActive'] = false;
-          data2.childrens.forEach(v => {
-            v['isActive'] = false;
-          })
-        }
-        if (data3.childrens && data3.childrens.length > 0) {
-          data3['isActive'] = false;
-          data3.childrens.forEach(v => {
-            v['isActive'] = false;
-          })
-        }
+        // if (data2.childrens && data2.childrens.length > 0) {
+        //   data2['isActive'] = false;
+        //   data2.childrens.forEach(v => {
+        //     v['isActive'] = false;
+        //   })
+        // }
+        // if (data3.childrens && data3.childrens.length > 0) {
+        //   data3['isActive'] = false;
+        //   data3.childrens.forEach(v => {
+        //     v['isActive'] = false;
+        //   })
+        // }
         this.treeData = [];
         this.treeData.push(data1);
-        this.treeData.push(data2);
-        this.treeData.push(data3);
+        // this.treeData.push(data2);
+        // this.treeData.push(data3);
         this.handleChildChange(data1.childrens[0], data1.childrens[0].childrens[0]);
       },
       getTreeInfo(num) {
@@ -254,13 +258,14 @@
       getRightInfo() {
         var arr = [];
         this.leftChooseIdArr.forEach(v => {
+          // v = "辅助检查";
           arr.push({
-            "accessPoint": "10.1.1","comparisonOperator":"Equal","value": v
+            "accessPoint": "10.1.11","comparisonOperator":"Equal","value": v
           })
         })
         this.$axios({
           // url: 'http://127.0.0.1:18082/catalog/rest/catalog/query',
-          url: 'http://218.245.3.121:16080/catalog/rest/catalog/query',
+          url: 'http://218.245.3.121:18082/catalog/rest/catalog/query',
           method: 'POST',
           data: {
             "username":"guest",
@@ -287,13 +292,17 @@
               var obj = {};
               item.itemList.items.forEach(v => {
                 obj['kf'] = '开放';
-                if (v.itemName == '10.1.2') obj['title'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.5') obj['time'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.6') obj['ly'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.4') obj['content'] = v.itemValues.join(' ');
-                 if (v.itemName == '10.1.8') obj['gs'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.10') obj['url'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.9') obj['gx'] = v.itemValues.join(' ');
+                obj['gx'] = '共享';
+                if (v.itemName == '10.1.1') obj['datasetName'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.2') obj['datasetID'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.3') obj['datasetCode'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.4') obj['distOrgName'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.7') obj['keyword'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.9') obj['catalogLvl1'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.10') obj['catalogLvl2'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.11') obj['catalogLvl3'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.12') obj['abstract'] = v.itemValues.join(' ');
+                if (v.itemName == '10.1.13') obj['dataElement'] = v.itemValues.join(' ');
               })
               this.rightData.push(obj);
             })
