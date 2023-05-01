@@ -5,26 +5,34 @@
         <el-tab-pane v-for="(item, index) in navData" :label="item.name" :name="item.activeName" :key="index"></el-tab-pane>
       </el-tabs>
       <div class="tree">
-        <div v-for="(tree, intree) in treeData" :key="intree">
-          <div class="tree-title set-point" @click="tree.isActive = !tree.isActive">
-            <span :class="['set-right', tree.isActive == false? 'el-icon-arrow-right' : 'el-icon-arrow-down']"></span>
-            {{tree.name}}[{{tree.childrens.length}}]
-          </div>
-          <div v-show="tree.isActive == true" class="tree-child set-point" v-for="(item, index) in tree.childrens" :key="index">
-            <div class="tree-prent" v-show="item.leaf == false" @click="item.isActive = !item.isActive">
-              <div>
-                <span :class="['set-right', item.isActive == false? 'el-icon-arrow-right' : 'el-icon-arrow-down']"></span>
-                {{item.name}}[{{getItmInfo(item)}}]
-              </div>
-            </div>
-            <div v-show="item.isActive == true" class="tree-child-child set-point" v-for="(itm, idx) in item.childrens" :key="idx">
-              <div v-show="itm.leaf == false" class="item-child" @click="handleChildChange(item, itm)">
-                <span :class="['set-right']"></span>
-                <span style="color: #606266">{{itm.name}} [{{getItmInfo(itm)}}]</span>
-              </div>
-            </div>
-          </div>
-        </div>
+<!--        <div v-for="(tree, intree) in treeData" :key="intree">-->
+<!--          <div class="tree-title set-point" @click="tree.isActive = !tree.isActive">-->
+<!--            <span :class="['set-right', tree.isActive == false? 'el-icon-arrow-right' : 'el-icon-arrow-down']"></span>-->
+<!--            {{tree.name}}[{{tree.childrens.length}}]-->
+<!--          </div>-->
+<!--          <div v-show="tree.isActive == true" class="tree-child set-point" v-for="(item, index) in tree.childrens" :key="index">-->
+<!--            <div class="tree-prent" v-show="item.leaf == false" @click="item.isActive = !item.isActive">-->
+<!--              <div>-->
+<!--                <span :class="['set-right', item.isActive == false? 'el-icon-arrow-right' : 'el-icon-arrow-down']"></span>-->
+<!--                {{item.name}}[{{getItmInfo(item)}}]-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div v-show="item.isActive == true" class="tree-child-child set-point" v-for="(itm, idx) in item.childrens" :key="idx">-->
+<!--              <div v-show="itm.leaf == false" class="item-child" @click="handleChildChange(item, itm)">-->
+<!--                <span :class="['set-right']"></span>-->
+<!--                <span style="color: #606266">{{itm.name}} [{{getItmInfo(itm)}}]</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <el-tree
+            :data="treeData"
+            :props="defaultProps"
+            ref="catalogtree"
+            node-key="code"
+            :default-expanded-keys="['A', 'B']"
+            @node-click="handleNodeClick">
+        </el-tree>
       </div>
     </div>
     <div class="catalog-right">
@@ -35,7 +43,7 @@
             </el-breadcrumb-item>
           </el-breadcrumb>
           <div class="totals">
-            总条数: {{total}}条
+            数据集: {{total}}项
           </div>
         </div>
       <div class="content">
@@ -64,14 +72,8 @@
             </div>
             <div class="u-cata-body">
               <div class="u-cata-info">
-                <span>来源：{{item.distOrgName}}</span>
-
-                <div>
-                  <div class="u-cata-info">
-<!--                    <span>发布日期：{{item.time}}</span>-->
-                    <span :title="item.abstract">摘要：{{item.abstract}}</span>
-                  </div>
-                </div>
+                <span>来源：{{item.distOrgName}}</span><br/>
+                <span>摘要：{{item.abstract}}</span>
               </div>
               <div class="u-cata-btn">
                 <div class="opt-container">
@@ -118,6 +120,7 @@
 </template>
 <script>
   import setdetail from '../../components/setdetailPop/setdetailPop.vue'
+  import {codeAt} from "core-js/internals/string-multibyte";
   export default {
     name: 'catalog',
     components: {setdetail},
@@ -136,16 +139,17 @@
         breadcrumbArr: [],
         navData: [
           {name: '健康体检数据集目录', activeName: '1'},
-          {name: '分类2', activeName: '2'},
-          {name: '分类3', activeName: '3'},
+          // {name: '分类2', activeName: '2'},
+          // {name: '分类3', activeName: '3'},
         ],
         defaultProps: {
-          children: 'children',
-          label: 'label'
+          children: 'childrens',
+          label: 'name'
         },
         treeData: [
           {
             name: '',
+            code: '',
             leaf: false,
             isActive: false,
             childrens: []
@@ -157,9 +161,12 @@
     },
     mounted() {
       // this.getTreeInfo(1);
-      this.getTreeInfo(0);
+      // this.getTreeInfo(0);
+      this.treeInfo();
+
     },
     methods: {
+      codeAt,
       popupDio(data) {
         this.dialog1Data.dialogVisible1 = true;
         this.dialog1Data.dialogVisible1Data = data;
@@ -168,18 +175,52 @@
         this.imageUrl = url;
         this.dialogVisible = true;
       },
-      handleChildChange(data, data2) {
-        this.breadcrumbArr[1] = data.name;
-        this.breadcrumbArr[2] = data2.name;
+      // handleChildChange(data, data2) {
+      //   this.breadcrumbArr[1] = data.name;
+      //   this.breadcrumbArr[2] = data2.name;
+      //   this.leftChooseIdArr = [];
+      //   if (data2.childrens) {
+      //     data2.childrens.forEach(v => {
+      //       // this.leftChooseIdArr.push(v.code.split('.')[1])
+      //       this.leftChooseIdArr.push(v.name)
+      //       // console.log(v.name);
+      //     })
+      //   }
+      //   this.getRightInfo();
+      // },
+      handleNodeClick(data, node){
+        console.log(node);
+        // console.log(node.parent.data.name);
+        let valnode = node.data;
         this.leftChooseIdArr = [];
-        if (data2.childrens) {
-          data2.childrens.forEach(v => {
-            // this.leftChooseIdArr.push(v.code.split('.')[1])
-            this.leftChooseIdArr.push(v.name)
-            // console.log(v.name);
-          })
+        if (valnode.childrens) {
+          this.getLeafNodes(valnode);
+        }else{
+          this.leftChooseIdArr.push(valnode.name);
         }
+        this.breadcrumbArr = [];
+        this.getParentPath(node);
+        console.log(this.breadcrumbArr);
         this.getRightInfo();
+      },
+      getLeafNodes(node){
+          node.childrens.forEach(item => {
+            if(item.childrens){
+              this.getLeafNodes(item);
+            }else{
+              this.leftChooseIdArr.push(item.name);
+            }
+          })
+      },
+      getParentPath(node){
+        // this.breadcrumbArr.push(node.data.name);
+        if (node.data.name) {
+          this.breadcrumbArr.unshift(node.data.name)
+        }
+
+        if (node.parent) {
+          this.getParentPath(node.parent);
+        }
       },
       async treeInfo() {
         this.breadcrumbArr = [];
@@ -195,21 +236,21 @@
         //   // url: '/ctree/v1/node/get/code/5'
         //   url: '/ctree/v1/node/get/code/0'
         // });
-        if (data1.childrens && data1.childrens.length > 0) {
-          data1['isActive'] = true;
-          this.breadcrumbArr.push(data1.name);
-          console.log(data1);
-          data1.childrens.forEach((v, i)=> {
-            if (i == 0) {
-              v['isActive'] = true;
-              this.breadcrumbArr.push(v.name);
-              if (v.childrens) {
-                this.breadcrumbArr.push(v.childrens[0].name);
-              }
-            }
-            else v['isActive'] = false;
-          })
-        }
+        // if (data1.childrens && data1.childrens.length > 0) {
+        //   console.log(data1);
+        //   data1['isActive'] = true;
+        //   this.breadcrumbArr.push(data1.name);
+        //   data1.childrens.forEach((v, i)=> {
+        //     if (i == 0) {
+        //       v['isActive'] = true;
+        //       this.breadcrumbArr.push(v.name);
+        //       if (v.childrens) {
+        //         this.breadcrumbArr.push(v.childrens[0].name);
+        //       }
+        //     }
+        //     else v['isActive'] = false;
+        //   })
+        // }
         // if (data2.childrens && data2.childrens.length > 0) {
         //   data2['isActive'] = false;
         //   data2.childrens.forEach(v => {
@@ -224,37 +265,44 @@
         // }
         this.treeData = [];
         this.treeData.push(data1);
+        console.log(data1);
+        this.breadcrumbArr = [];
+        this.breadcrumbArr.unshift(data1.name);
+        this.leftChooseIdArr = [];
+        this.getLeafNodes(data1);
+        this.getRightInfo();
+
         // this.treeData.push(data2);
         // this.treeData.push(data3);
-        this.handleChildChange(data1.childrens[0], data1.childrens[0].childrens[0]);
+        // this.handleChildChange(data1.childrens[0], data1.childrens[0].childrens[0]);
       },
-      getTreeInfo(num) {
-        this.breadcrumbArr = [];
-        if (num == 1) {
-          this.treeInfo();
-        } else {
-          this.$axios({
-            url: `/ctree/v1/node/get/code/${num}`
-          }).then(json => {
-            if (json.childrens && json.childrens.length > 0) {
-              json['isActive'] = true; // false
-              this.breadcrumbArr.push(json.name);
-              json.childrens.forEach((v, i) => {
-                if (i == 0) {
-                  v['isActive'] = true;
-                  this.breadcrumbArr.push(v.name);
-                  if (v.childrens) this.breadcrumbArr.push(v.childrens[0].name);
-                } else {
-                  v['isActive'] = false;
-                }
-              })
-            }
-            this.treeData = [];
-            this.treeData.push(json);
-            this.handleChildChange(this.treeData[0].childrens[0], this.treeData[0].childrens[0].childrens[0]);
-          })
-        }
-      },
+      // getTreeInfo(num) {
+      //   this.breadcrumbArr = [];
+      //   if (num == 1) {
+      //     this.treeInfo();
+      //   } else {
+      //     this.$axios({
+      //       url: `/ctree/v1/node/get/code/${num}`
+      //     }).then(json => {
+      //       if (json.childrens && json.childrens.length > 0) {
+      //         json['isActive'] = true; // false
+      //         this.breadcrumbArr.push(json.name);
+      //         json.childrens.forEach((v, i) => {
+      //           if (i == 0) {
+      //             v['isActive'] = true;
+      //             this.breadcrumbArr.push(v.name);
+      //             if (v.childrens) this.breadcrumbArr.push(v.childrens[0].name);
+      //           } else {
+      //             v['isActive'] = false;
+      //           }
+      //         })
+      //       }
+      //       this.treeData = [];
+      //       this.treeData.push(json);
+      //       // this.handleChildChange(this.treeData[0].childrens[0], this.treeData[0].childrens[0].childrens[0]);
+      //     })
+      //   }
+      // },
       getRightInfo() {
         var arr = [];
         this.leftChooseIdArr.forEach(v => {
@@ -310,7 +358,7 @@
         })
       },
       handleClick() {
-        this.getTreeInfo(this.activeName);
+        // this.getTreeInfo(this.activeName);
       },
       pageChange(size) {
         this.pageSize = size - 1;
@@ -334,7 +382,7 @@
       margin: 0;
     }
     .catalog-left {
-      width: 25%;
+      width: 20%;
       border-right: 1px solid #cccccc;
       height: 100%;
     }
@@ -359,16 +407,15 @@
         border-radius: 3px;
         overflow: hidden;
         transition: .5s;
-        width: 100%;
         width: 96%;
         margin: 10px auto 0;
-        padding-bottom: 10px;
+        padding-bottom: 5px;
         .u-cata-main {
-          padding: 15px 20px;
+          padding: 10px 20px;
           .u-cata-header {
             padding-right: 0;
             overflow: visible;
-            height: 50px;
+            height: 30px;
             padding-bottom: 5px;
             margin-bottom: 5px;
             border-bottom: 1px solid #eee;
@@ -388,7 +435,7 @@
                 font-size: 18px;
                 color: #1067ab;
                 transition: .5s;
-                margin-top: 10px;
+                margin-top: 5px;
               }
             }
             .l-ask {
