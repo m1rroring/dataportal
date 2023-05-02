@@ -2,7 +2,7 @@
   <div class="search">
     <div class="searchbox disflex">
       <div class="input-box">
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="input" @change="getContent" placeholder="请输入内容"></el-input>
       </div>
       <el-button type="primary" size="small" round @click="getContent">查 询</el-button>
       <el-button type="primary" size="small" round @click="input = ''">重 置</el-button>
@@ -33,17 +33,8 @@
             </div>
             <div class="u-cata-body">
               <div class="u-cata-info">
-                <span>来源：{{item.distOrgName}}</span>
-                <div>
-                  <div class="u-cata-info">
-                    <span :title="item.abstract">数据集摘要：{{item.abstract}}</span>
-                  </div>
-                </div>
-                <div>
-                  <div class="u-cata-info">
-                    <span>发布日期：{{item.time}}</span>
-                  </div>
-                </div>
+                <span>来源：{{item.distOrgName}}</span><br/>
+                <span>摘要：{{item.abstract}}</span>
               </div>
               <div class="u-cata-btn">
                 <div class="opt-container">
@@ -74,7 +65,17 @@
         </div>
     </div>
     <div class="page disflex js-center">
-      <el-pagination background layout="prev, pager, next" :total="total" @current-change="pageChange"></el-pagination>
+<!--      <el-pagination background layout="prev, pager, next" :total="total" :sizes=10 @current-change="pageChange"></el-pagination>-->
+      <el-pagination
+          ref="searchPage"
+          background
+          @size-change="handleSizeChange"
+          @current-change="pageChange"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="10"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total=this.total>
+      </el-pagination>
     </div>
     <el-dialog
       title="图像查看" :visible.sync="dialogVisible" width="60%" center>
@@ -101,7 +102,8 @@
         dialogVisible: false,
         imageUrl: '',
         total: 0,
-        pageSize: 0,
+        startPoint: 0,
+        pageSize: 10,
         rightData: []
       }
     },
@@ -122,7 +124,7 @@
         var arr = [];
         ele.forEach(v => {
           arr.push({
-            "accessPoint": v,"comparisonOperator":"Like","value": (this.input || '1')
+            "accessPoint": v,"comparisonOperator":"Like","value": (this.input || '')
           })
         })
         this.$axios({
@@ -140,8 +142,8 @@
             "elementSet":{
               "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.7","10.1.9","10.1.10","10.1.11","10.1.12","10.1.13"]
             },
-            "recordSetStartPoint":this.pageSize,
-            "recordSetEndPoint":10
+            "recordSetStartPoint":this.startPoint,
+            "recordSetEndPoint":(this.startPoint + this.pageSize)
           }
         }).then(json => {
           this.total = json.totalNumberOfRecords;
@@ -168,8 +170,13 @@
           }
         })
       },
-      pageChange(size) {
-        this.pageSize = size - 1;
+      pageChange(page) {
+        this.startPoint = this.pageSize * (page - 1);
+        this.getContent();
+      },
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.startPoint = 0;
         this.getContent();
       }
     }
@@ -187,8 +194,9 @@
       }
     }
     .content {
-      height: calc(100% - 50px);
-      overflow-y: auto;
+      //height: calc(100% - 50px);
+      height: 570px;
+      overflow-y: scroll;
       .cr-title:hover {
         border-left: 3px solid #1067ab;;
       }
@@ -202,16 +210,15 @@
         border-radius: 3px;
         overflow: hidden;
         transition: .5s;
-        width: 100%;
         width: 96%;
         margin: 10px auto 0;
-        padding-bottom: 10px;
+        padding-bottom: 5px;
         .u-cata-main {
-          padding: 15px 20px;
+          padding: 5px 20px;
           .u-cata-header {
             padding-right: 0;
             overflow: visible;
-            height: 50px;
+            height: 25px;
             padding-bottom: 5px;
             margin-bottom: 5px;
             border-bottom: 1px solid #eee;
@@ -220,18 +227,15 @@
             text-overflow: ellipsis;
             .title-content {
               .title {
-                font-size: 18px;
-                color: #1067ab;
-                transition: .5s;
                 display: inline-block;
                 max-width: 400px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                font-size: 18px;
+                font-size: 16px;
                 color: #1067ab;
                 transition: .5s;
-                margin-top: 10px;
+                margin-top: 5px;
               }
             }
             .l-ask {

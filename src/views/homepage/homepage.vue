@@ -1,9 +1,9 @@
 <template>
   <div id="page">
-    <!-- <div class="header">
+    <div class="header">
       <div class="head"></div>
     </div>
-    <Head :data="headData"></Head> -->
+    <Head :data="headData"></Head>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="1">首页</el-menu-item>
       <el-menu-item index="2">信息资源目录</el-menu-item>
@@ -61,7 +61,7 @@ export default {
     background-image: linear-gradient(to right, #0f58af , #01093a);
     .head {
       width: 60%;
-      height: 205px;
+      height: 150px;
       margin: 0 auto;
       background: url('../../assets/timg.jpg') no-repeat;
       background-size: 100% 100%;

@@ -3,9 +3,8 @@
     <div class="header">
       <div class="head"></div>
     </div>
-<!--    <Head :data="headData">-->
-    <Head>
-      <title>健康体检数据集检索系统</title>
+    <Head :data="headData">
+<!--      <title>健康体检数据集检索系统</title>-->
     </Head>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="0">首页</el-menu-item>
@@ -157,7 +156,7 @@ export default {
 
 <style lang="scss" scoped>
   #App>.content {
-    height: calc(100% - 171px);
+    height: calc(100% - 116px);
   }
   .footer {
     height: 30px;
@@ -166,7 +165,7 @@ export default {
     background-image: linear-gradient(to right, #f3fdfc , #fbfbfb);
     .head {
       width: 50%;
-      height: 205px;
+      height: 150px;
       margin: 0 auto;
       background: url('./assets/banner.png') no-repeat;
       background-size: 100% 100%;

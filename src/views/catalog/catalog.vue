@@ -105,7 +105,16 @@
         </div>
       </div>
       <div class="page disflex js-center">
-        <el-pagination background layout="prev, pager, next" :total="total" @current-change="pageChange"></el-pagination>
+        <el-pagination
+            ref="searchPage"
+            background
+            @size-change="handleSizeChange"
+            @current-change="pageChange"
+            :page-sizes="[10, 20, 30, 40]"
+            :page-size="10"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total=this.total>
+        </el-pagination>
       </div>
     </div>
     <el-dialog
@@ -127,7 +136,8 @@
     data() {
       return {
         total: 0,
-        pageSize: 0,
+        startPoint: 0,
+        pageSize: 10,
         isIndeterminate: false,
         activeName: '1',
         dialogVisible: false,
@@ -329,8 +339,8 @@
               // "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.5","10.1.6","10.1.7","10.1.8","10.1.9","10.1.10"]
               "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.7","10.1.9","10.1.10","10.1.11","10.1.12","10.1.13"]
             },
-            "recordSetStartPoint":this.pageSize,
-            "recordSetEndPoint":10
+            "recordSetStartPoint":this.startPoint,
+            "recordSetEndPoint":(this.startPoint + this.pageSize)
           }
         }).then(json => {
           this.total = json.totalNumberOfRecords;
@@ -360,8 +370,13 @@
       handleClick() {
         // this.getTreeInfo(this.activeName);
       },
-      pageChange(size) {
-        this.pageSize = size - 1;
+      pageChange(page) {
+        this.startPoint = this.pageSize * (page - 1);
+        this.getRightInfo();
+      },
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.startPoint = 0;
         this.getRightInfo();
       },
       getItmInfo(itm) {
@@ -392,7 +407,7 @@
       .content {
         width: 100%;
         overflow-y: scroll;
-        height: 500px;
+        height: 570px;
       }
       .cr-title:hover {
         border-left: 3px solid #1067ab;;
@@ -411,11 +426,11 @@
         margin: 10px auto 0;
         padding-bottom: 5px;
         .u-cata-main {
-          padding: 10px 20px;
+          padding: 5px 20px;
           .u-cata-header {
             padding-right: 0;
             overflow: visible;
-            height: 30px;
+            height: 25px;
             padding-bottom: 5px;
             margin-bottom: 5px;
             border-bottom: 1px solid #eee;
@@ -424,15 +439,12 @@
             text-overflow: ellipsis;
             .title-content {
               .title {
-                font-size: 18px;
-                color: #1067ab;
-                transition: .5s;
                 display: inline-block;
                 max-width: 400px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                font-size: 18px;
+                font-size: 16px;
                 color: #1067ab;
                 transition: .5s;
                 margin-top: 5px;
