@@ -161,6 +161,11 @@ export default {
   .footer {
     height: 30px;
   }
+  ::v-deep .el-menu-item {height: 45px;line-height: 45px;
+  }
+  ::v-deep .el-submenu__title{height: 45px;line-height: 45px;
+  }
+
   .header {
     background-image: linear-gradient(to right, #f3fdfc , #fbfbfb);
     .head {
