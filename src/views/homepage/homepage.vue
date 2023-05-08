@@ -26,9 +26,7 @@ export default {
   data() {
     return {
       activeIndex: '1',
-      headData: {
-        title: '健康体检数据集检索系统'
-      },
+      headData: {},
     }
   },
   mounted() {

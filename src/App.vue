@@ -4,7 +4,7 @@
       <div class="head"></div>
     </div>
     <Head :data="headData">
-      <title>健康体检数据集检索系统</title>
+<!--      <title>健康体检数据集检索系统</title>-->
     </Head>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="0">首页</el-menu-item>
@@ -44,10 +44,7 @@ export default {
       dialogVisible: false,
       name: '',
       pasd: '',
-      headData: {
-        title: '健康体检数据集检索系统',
-        name: '健康体检数据集检索系统'
-      },
+      headData: {},
       navData: [
         {name: '体检数据集目录', value: '1',title: 'CATALOG_VIEW', show: false},
         {name: '体检数据集查询', value: '2',title: 'RESOURCE_SEARCH', show: false},
@@ -59,6 +56,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '健康体检数据集检索系统';
     this.getPageRoute();
     // this.setPageNav();
     this.navData.forEach(item => {
