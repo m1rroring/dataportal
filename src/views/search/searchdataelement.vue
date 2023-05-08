@@ -12,7 +12,7 @@
           <div class="u-cata-main">
             <div class="u-cata-header">
               <div class="title-content disflex js-between">
-                <div class="title pointer" :title="item.datasetName" @click="popupDio(item)">{{item.datasetName}}</div>
+                <div class="title pointer" :title="item.elementName" @click="popupDio(item)">{{item.elementName}}</div>
 <!--                <div class="icon-box">-->
 <!--                  <div class="l-ask">-->
 <!--                    <span>访问量：0</span>-->
@@ -33,8 +33,8 @@
             </div>
             <div class="u-cata-body">
               <div class="u-cata-info">
-                <span>来源：{{item.distOrgName}}</span><br/>
-                <span>摘要：{{item.abstract}}</span>
+                <span>定义：{{item.definition}}</span><br/>
+                <span>关键字：{{item.keyword}}</span>
               </div>
               <div class="u-cata-btn">
                 <div class="opt-container">
@@ -120,7 +120,7 @@
         this.dialogVisible = true;
       },
       getContent() {
-        var ele = ["10.1.1","10.1.7","10.1.12"];
+        var ele = ["10.1.1","10.1.9"];
         var arr = [];
         ele.forEach(v => {
           arr.push({
@@ -134,13 +134,14 @@
             "username":"guest",
             "password":"guest",
             "protocolVersion":"4.1",
-            "databases":{"databaseId":["healthCheck"]},
+            "databases":{"databaseId":["dataElement"]},
             "query":{
               "logicOperator":"Or",
               "simpleCondition": arr
             },
             "elementSet":{
-              "element":["10.1.1","10.1.2","10.1.3","10.1.4","10.1.7","10.1.9","10.1.10","10.1.11","10.1.12","10.1.13"]
+                "element":["10.1.1","10.1.5","10.1.7","10.1.9","10.1.19","10.1.21","10.1.22"]
+                // "element":[]
             },
             "recordSetStartPoint":this.startPoint,
             "recordSetEndPoint":(this.startPoint + this.pageSize)
@@ -154,16 +155,13 @@
               item.itemList.items.forEach(v => {
                 obj['kf'] = '开放';
                 obj['gx'] = '共享';
-                if (v.itemName == '10.1.1') obj['datasetName'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.2') obj['datasetID'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.3') obj['datasetCode'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.4') obj['distOrgName'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.7') obj['keyword'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.9') obj['catalogLvl1'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.10') obj['catalogLvl2'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.11') obj['catalogLvl3'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.12') obj['abstract'] = v.itemValues.join(' ');
-                if (v.itemName == '10.1.13') obj['dataElement'] = v.itemValues.join(' ');
+                  if (v.itemName == '10.1.1') obj['elementName'] = v.itemValues.join(' ');
+                  if (v.itemName == '10.1.5') obj['alias'] = v.itemValues.join(' ');
+                  if (v.itemName == '10.1.7') obj['definition'] = v.itemValues.join(' ');
+                  if (v.itemName == '10.1.9') obj['keyword'] = v.itemValues.join(' ');
+                  if (v.itemName == '10.1.19') obj['authorityOrganization'] = v.itemValues.join(' ');
+                  if (v.itemName == '10.1.21') obj['registrantOrganization'] = v.itemValues.join(' ');
+                  if (v.itemName == '10.1.22') obj['note'] = v.itemValues.join(' ');
               })
               this.rightData.push(obj);
             })

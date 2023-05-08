@@ -52,22 +52,22 @@
             <div class="u-cata-header">
               <div class="title-content disflex js-between">
                 <div class="title pointer" :title="item.datasetName" @click="popupDio(item)">{{item.datasetName}}</div>
-                <div class="icon-box">
-                  <div class="l-ask">
-                    <span>访问量：0</span>
-                    <span>申请量：0</span>
-                  </div>
-                  <div class="l-ask">
-                    <div class="property-container">
-                      <span>共享属性</span>
-                      <div :class="['source-property', item.gx == '共享'? 'setgreenbg' : 'setredbg']"></div>
-                    </div>
-                    <div class="property-container">
-                      <span>开放属性</span>
-                      <div :class="['source-property', item.kf == '开放'? 'setgreenbg' : 'setredbg']"></div>
-                    </div>
-                  </div>
-                </div>
+<!--                <div class="icon-box">-->
+<!--                  <div class="l-ask">-->
+<!--                    <span>访问量：0</span>-->
+<!--                    <span>申请量：0</span>-->
+<!--                  </div>-->
+<!--                  <div class="l-ask">-->
+<!--                    <div class="property-container">-->
+<!--                      <span>共享属性</span>-->
+<!--                      <div :class="['source-property', item.gx == '共享'? 'setgreenbg' : 'setredbg']"></div>-->
+<!--                    </div>-->
+<!--                    <div class="property-container">-->
+<!--                      <span>开放属性</span>-->
+<!--                      <div :class="['source-property', item.kf == '开放'? 'setgreenbg' : 'setredbg']"></div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
               </div>
             </div>
             <div class="u-cata-body">
@@ -77,26 +77,26 @@
               </div>
               <div class="u-cata-btn">
                 <div class="opt-container">
-                  <div :class="['l-opt', item.url && 'pointer']" @click="showPopup(item.url)">
-                    <i :class="['fa', item.url? 'fa-list-img1' : 'fa-list-img']"></i>
-                    <div :class="['type-name', item.url && 'blue']">图像</div>
-                  </div>
+<!--                  <div :class="['l-opt', item.url && 'pointer']" @click="showPopup(item.url)">-->
+<!--                    <i :class="['fa', item.url? 'fa-list-img1' : 'fa-list-img']"></i>-->
+<!--                    <div :class="['type-name', item.url && 'blue']">图像</div>-->
+<!--                  </div>-->
                   <div class="l-opt">
                     <i class="fa fa-list-alt"></i>
-                    <div class="type-name">库表</div>
+                    <div class="type-name">数据集</div>
                   </div>
                   <div class="l-opt">
                     <i class="fa fa-file"></i>
                     <div class="type-name">文件</div>
                   </div>
-                  <div class="l-opt">
-                    <i class="fa fa-folder"></i>
-                    <div class="type-name">文件夹</div>
-                  </div>
-                  <div class="l-opt">
-                    <i class="fa fa-server"></i>
-                    <div class="type-name">接口</div>
-                  </div>
+<!--                  <div class="l-opt">-->
+<!--                    <i class="fa fa-folder"></i>-->
+<!--                    <div class="type-name">文件夹</div>-->
+<!--                  </div>-->
+<!--                  <div class="l-opt">-->
+<!--                    <i class="fa fa-server"></i>-->
+<!--                    <div class="type-name">接口</div>-->
+<!--                  </div>-->
                 </div>
               </div>
             </div>
@@ -319,6 +319,7 @@
           // v = "辅助检查";
           arr.push({
             "accessPoint": "10.1.11","comparisonOperator":"Equal","value": v
+            // "accessPoint": "10.1.9","comparisonOperator":"Equal","value": v
           })
         })
         this.$axios({
@@ -329,7 +330,6 @@
             "username":"guest",
             "password":"guest",
             "protocolVersion":"4.1",
-            // "databases":{"databaseId":["test"]},
             "databases":{"databaseId":["healthCheck"]},
             "query":{
               "logicOperator":"Or",
@@ -348,6 +348,7 @@
           if (json.recordSet && json.recordSet.record) {
             json.recordSet.record.forEach(item => {
               var obj = {};
+
               item.itemList.items.forEach(v => {
                 obj['kf'] = '开放';
                 obj['gx'] = '共享';
@@ -407,7 +408,7 @@
       .content {
         width: 100%;
         overflow-y: scroll;
-        height: 570px;
+        height: 100%;
       }
       .cr-title:hover {
         border-left: 3px solid #1067ab;;

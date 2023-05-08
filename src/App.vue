@@ -4,7 +4,7 @@
       <div class="head"></div>
     </div>
     <Head :data="headData">
-<!--      <title>健康体检数据集检索系统</title>-->
+      <title>健康体检数据集检索系统</title>
     </Head>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="0">首页</el-menu-item>
@@ -49,10 +49,12 @@ export default {
         name: '健康体检数据集检索系统'
       },
       navData: [
-        {name: '信息资源目录', value: '1',title: 'CATALOG_VIEW', show: false},
-        {name: '信息资源查询', value: '2',title: 'RESOURCE_SEARCH', show: false},
-        {name: '目录分类维护', value: '3',title: 'CATALOG_MANAGEMENT', show: false},
-        {name: '目录注册及发布管理', value: '4',title: 'RESOURCE_MANAGEMENT', show: false}
+        {name: '体检数据集目录', value: '1',title: 'CATALOG_VIEW', show: false},
+        {name: '体检数据集查询', value: '2',title: 'RESOURCE_SEARCH', show: false},
+        // {name: '目录分类维护', value: '3',title: 'CATALOG_MANAGEMENT', show: false},
+        // {name: '目录注册及发布管理', value: '4',title: 'RESOURCE_MANAGEMENT', show: false}
+        {name: '数据元目录', value: '3',title: 'CATALOG_DATA_ELEMENT', show: false},
+        {name: '数据元查询', value: '4',title: 'DATA_ELEMENT_SEARCH', show: false}
       ]
     }
   },
@@ -137,6 +139,8 @@ export default {
         '/',
         '/catalog',
         '/search',
+        '/catalogdataelement',
+        '/searchdataelement',
         '/maintain',
         '/register',
         '/imports'
