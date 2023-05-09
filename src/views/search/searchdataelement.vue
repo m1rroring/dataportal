@@ -88,7 +88,7 @@
   </div>
 </template>
 <script>
-  import setdetail from '../../components/setdetailPop/setDataElementlPop.vue'
+  import setdetail from '../../components/setdetailPop/setDataElementPop.vue'
   export default {
     name: 'home',
     components: {setdetail},

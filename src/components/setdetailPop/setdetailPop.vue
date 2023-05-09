@@ -66,19 +66,16 @@
     components: {},
     data() {
       return {
-        
       }
     },
     mounted() {
       console.log(this.data);
     },
     methods: {
-
     }
   }
 </script>
 <style lang="scss" scoped>
-
   .dia-item {
     margin-bottom: 20px;
     font-size: 16px;

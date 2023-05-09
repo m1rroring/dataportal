@@ -1,41 +1,41 @@
 <template>
   <div class="ditail">
-    <el-dialog title="数据元详情" :visible.sync="data.dialogVisible1" width="62%" color="#0f58af" center>
+    <el-dialog title="数据集内容" :visible.sync="data.eleDialogVisible" width="62%" color="#0f58af" center>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
           <div class="dia-i-label" style="color:#0f58af">数据元名称:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.elementName}}</div>
+          <div class="dia-i-text"></div>
         </div>
         <div class="dia-i-right">
           <div class="dia-i-label" style="color:#0f58af">同义名称:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.alias}}</div>
+          <div class="dia-i-text"></div>
         </div>
       </div>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
           <div class="dia-i-label" style="color:#0f58af">定义:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.definition}}</div>
+          <div class="dia-i-text"></div>
         </div>
         <div class="dia-i-right">
           <div class="dia-i-label" style="color:#0f58af">关键字:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.keyword}}</div>
+          <div class="dia-i-text"></div>
         </div>
 
       </div>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
           <div class="dia-i-label" style="color:#0f58af">主管机构:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.authorityOrganization}}</div>
+          <div class="dia-i-text"></div>
         </div>
         <div class="dia-i-right">
           <div class="dia-i-label" style="color:#0f58af">提交机构:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.registrantOrganization}}</div>
+          <div class="dia-i-text"></div>
         </div>
       </div>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
           <div class="dia-i-label" style="color:#0f58af">备注:</div>
-          <div class="dia-i-text">{{data.dialogVisible1Data.note}}</div>
+          <div class="dia-i-text"></div>
         </div>
 <!--        <div class="dia-i-right">-->
 <!--          <div class="dia-i-label" style="color:#0f58af"></div>-->

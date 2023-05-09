@@ -81,7 +81,7 @@
 <!--                    <i :class="['fa', item.url? 'fa-list-img1' : 'fa-list-img']"></i>-->
 <!--                    <div :class="['type-name', item.url && 'blue']">图像</div>-->
 <!--                  </div>-->
-                  <div class="l-opt">
+                  <div class="l-opt" @click="showTablePopup(item.datasetCode)">
                     <i class="fa fa-list-alt"></i>
                     <div class="type-name">数据集</div>
                   </div>
@@ -125,25 +125,38 @@
       </span>
     </el-dialog>
     <setdetail :data="dialog1Data" />
+    <setelement :data="elementDialogData" />
   </div>
 </template>
 <script>
-  import setdetail from '../../components/setdetailPop/setdetailPop.vue'
+  import setdetail from '../../components/setdetailPop/setdetailPop.vue';
+  import setelement from '../../components/setdetailPop/setDataElementPop.vue';
   import {codeAt} from "core-js/internals/string-multibyte";
   export default {
     name: 'catalog',
-    components: {setdetail},
+    components: {setdetail,setelement},
     data() {
       return {
         total: 0,
         startPoint: 0,
         pageSize: 10,
+        tableTotal: 0,
+        tablePage: 1,
+        tablePageSize: 10,
+        tableColSet: [],
+        tableDataSet: [],
         isIndeterminate: false,
         activeName: '1',
         dialogVisible: false,
         dialog1Data: {
           dialogVisible1: false,
           dialogVisible1Data: {}
+        },
+        elementDialogVisible: false,
+        elementDialogData: {
+            eleDialogVisible: false,
+            eleDialogColData: {},
+            eleDialogData: {},
         },
         imageUrl: '',
         breadcrumbArr: [],
@@ -173,13 +186,17 @@
       // this.getTreeInfo(1);
       // this.getTreeInfo(0);
       this.treeInfo();
-
     },
     methods: {
       codeAt,
       popupDio(data) {
         this.dialog1Data.dialogVisible1 = true;
         this.dialog1Data.dialogVisible1Data = data;
+      },
+      popupEle(coldata,eledata){
+          this.elementDialogData.eleDialogVisible = true;
+          this.elementDialogData.eleDialogColData = coldata;
+          this.elementDialogData.eleDialogData = eledata;
       },
       showPopup(url) {
         this.imageUrl = url;
@@ -348,7 +365,6 @@
           if (json.recordSet && json.recordSet.record) {
             json.recordSet.record.forEach(item => {
               var obj = {};
-
               item.itemList.items.forEach(v => {
                 obj['kf'] = '开放';
                 obj['gx'] = '共享';
@@ -370,6 +386,24 @@
       },
       handleClick() {
         // this.getTreeInfo(this.activeName);
+      },
+      async showTablePopup(datasetCode) {
+          await this.$axiosget({
+              url: 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/info',
+          }).then(json => {
+              this.tableTotal = json.count;
+              this.tableColSet.push(json.fields);
+              console.log(this.tableTotal);
+              console.log(this.tableColSet);
+          });
+          await this.$axiosget({
+              url: 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/data',
+              data: {page:this.tablePage,pagesize:this.tablePageSize},
+          }).then(json => {
+              this.tableDataSet.push(json.data);
+              console.log(this.tableDataSet);
+          });
+          this.popupEle(this.tableColSet,this.tableDataSet);
       },
       pageChange(page) {
         this.startPoint = this.pageSize * (page - 1);
@@ -511,6 +545,7 @@
                   margin-top: 3px;
                   margin-right: 15px;
                   font-size: 12px;
+                  cursor: pointer;
                   .fa {
                     width: 100%!important;
                     margin: 5px 0 0 0;

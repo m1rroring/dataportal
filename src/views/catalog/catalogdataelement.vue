@@ -108,7 +108,7 @@
   </div>
 </template>
 <script>
-  import setdetail from '../../components/setdetailPop/setDataElementlPop.vue'
+  import setdetail from '../../components/setdetailPop/setDataElementPop.vue'
   import {codeAt} from "core-js/internals/string-multibyte";
   export default {
     name: 'catalog',

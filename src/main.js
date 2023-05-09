@@ -36,6 +36,7 @@ const service = {
 };
 Vue.prototype.$axios = service.ajax;
 Vue.prototype.$axios1 = axios;
+Vue.prototype.$axiosget = service.ajaxGet;
 let loading;
 axios.interceptors.request.use(config => {
   // console.log(config.config.url);
