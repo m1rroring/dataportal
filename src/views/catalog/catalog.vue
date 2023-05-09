@@ -392,7 +392,7 @@
               url: 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/info',
           }).then(json => {
               this.tableTotal = json.count;
-              this.tableColSet.push(json.fields);
+              this.tableColSet = json.fields;
               console.log(this.tableTotal);
               console.log(this.tableColSet);
           });
@@ -400,7 +400,7 @@
               url: 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/data',
               data: {page:this.tablePage,pagesize:this.tablePageSize},
           }).then(json => {
-              this.tableDataSet.push(json.data);
+              this.tableDataSet = json.data;
               console.log(this.tableDataSet);
           });
           this.popupEle(this.tableColSet,this.tableDataSet);
