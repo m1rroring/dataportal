@@ -126,16 +126,16 @@
       </span>
     </el-dialog>
     <setdetail :data="dialog1Data" />
-    <setelement :data="elementDialogData" />
+    <setdataset :data="elementDialogData" />
   </div>
 </template>
 <script>
   import setdetail from '../../components/setdetailPop/setdetailPop.vue';
-  import setelement from '../../components/setdetailPop/setDataElementPop.vue';
+  import setdataset from '../../components/setdetailPop/setDataSetPop.vue';
   import {codeAt} from "core-js/internals/string-multibyte";
   export default {
     name: 'catalog',
-    components: {setdetail,setelement},
+    components: {setdetail,setdataset},
     data() {
       return {
         total: 0,
