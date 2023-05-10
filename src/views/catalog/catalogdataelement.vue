@@ -23,7 +23,7 @@
             </el-breadcrumb-item>
           </el-breadcrumb>
           <div class="totals">
-            数据集: {{total}}项
+            数据元: {{total}}项
           </div>
         </div>
       <div class="content">
