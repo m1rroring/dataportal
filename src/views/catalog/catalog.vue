@@ -81,7 +81,7 @@
 <!--                    <i :class="['fa', item.url? 'fa-list-img1' : 'fa-list-img']"></i>-->
 <!--                    <div :class="['type-name', item.url && 'blue']">图像</div>-->
 <!--                  </div>-->
-                  <div class="l-opt" @click="showTablePopup(item.datasetCode)">
+                  <div class="l-opt" @click="showTablePopup(item.datasetCode,item.datasetName)">
                     <i class="fa fa-list-alt"></i>
                     <div class="type-name">数据集</div>
                   </div>
@@ -111,7 +111,8 @@
             @size-change="handleSizeChange"
             @current-change="pageChange"
             :page-sizes="[10, 20, 30, 40]"
-            :page-size="10"
+            :page-size=this.pageSize
+            :current-page=this.startPage
             layout="total, sizes, prev, pager, next, jumper"
             :total=this.total>
         </el-pagination>
@@ -139,6 +140,7 @@
       return {
         total: 0,
         startPoint: 0,
+        startPage: 1,
         pageSize: 10,
         tableTotal: 0,
         tablePage: 1,
@@ -155,8 +157,11 @@
         elementDialogVisible: false,
         elementDialogData: {
             eleDialogVisible: false,
+            eleDialogTitle: "",
             eleDialogColData: {},
             eleDialogData: {},
+            eleDialogDataCount: 0,
+            eleDialogDataUrl: ""
         },
         imageUrl: '',
         breadcrumbArr: [],
@@ -193,10 +198,13 @@
         this.dialog1Data.dialogVisible1 = true;
         this.dialog1Data.dialogVisible1Data = data;
       },
-      popupEle(coldata,eledata){
-          this.elementDialogData.eleDialogVisible = true;
-          this.elementDialogData.eleDialogColData = coldata;
-          this.elementDialogData.eleDialogData = eledata;
+      popupEle(eletitle,coldata,eledata,datacount,dataurl){
+        this.elementDialogData.eleDialogVisible = true;
+        this.elementDialogData.eleDialogTitle = eletitle;
+        this.elementDialogData.eleDialogColData = coldata;
+        this.elementDialogData.eleDialogData = eledata;
+        this.elementDialogData.eleDialogDataCount = datacount;
+        this.elementDialogData.eleDialogDataUrl = dataurl;
       },
       showPopup(url) {
         this.imageUrl = url;
@@ -227,7 +235,7 @@
         }
         this.breadcrumbArr = [];
         this.getParentPath(node);
-        console.log(this.breadcrumbArr);
+        // console.log(this.breadcrumbArr);
         this.getRightInfo();
       },
       getLeafNodes(node){
@@ -387,31 +395,31 @@
       handleClick() {
         // this.getTreeInfo(this.activeName);
       },
-      async showTablePopup(datasetCode) {
+      async showTablePopup(datasetCode,datasetName) {
           await this.$axiosget({
               url: 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/info',
           }).then(json => {
               this.tableTotal = json.count;
               this.tableColSet = json.fields;
-              console.log(this.tableTotal);
-              console.log(this.tableColSet);
           });
+          let sentUrl = 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/data';
           await this.$axiosget({
-              url: 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/data',
+              url: sentUrl,
               data: {page:this.tablePage,pagesize:this.tablePageSize},
           }).then(json => {
               this.tableDataSet = json.data;
-              console.log(this.tableDataSet);
           });
-          this.popupEle(this.tableColSet,this.tableDataSet);
+          this.popupEle(datasetName,this.tableColSet,this.tableDataSet,this.tableTotal,sentUrl);
       },
       pageChange(page) {
         this.startPoint = this.pageSize * (page - 1);
+        this.startPage = page;
         this.getRightInfo();
       },
       handleSizeChange(val) {
         this.pageSize = val;
         this.startPoint = 0;
+        this.startPage = 1;
         this.getRightInfo();
       },
       getItmInfo(itm) {
