@@ -402,6 +402,7 @@
               this.tableTotal = json.count;
               this.tableColSet = json.fields;
           });
+          console.log(this.tableColSet);
           let sentUrl = 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/data';
           await this.$axiosget({
               url: sentUrl,
@@ -409,6 +410,7 @@
           }).then(json => {
               this.tableDataSet = json.data;
           });
+          console.log(this.tableDataSet);
           this.popupEle(datasetName,this.tableColSet,this.tableDataSet,this.tableTotal,sentUrl);
       },
       pageChange(page) {
