@@ -98,7 +98,7 @@
 </script>
 <style lang="scss" scoped>
 .ditaildialog {
-  /deep/ .el-table--scrollable-x .el-table__body-wrapper {
+  /deep/ .el-table__scrollable-x .el-table__body-wrapper {
     overflow: auto;
   }
   /deep/ .el-table__fixed-right-patch {
@@ -108,15 +108,18 @@
     width: 8px; /*滚动条宽度*/
     height: 8px; /*滚动条高度*/
   }
-  /deep/ .el-table__body-wrapper::-webkit-scrollbar-track {
-    border-radius: 10px; /*滚动条的背景区域的圆角*/
-    -webkit-box-shadow: inset 0 0 6px rgba(238, 238, 238, 0.3);
-    background-color: #eeeeee; /*滚动条的背景颜色*/
-  }
-  /deep/ .el-table__body-wrapper::-webkit-scrollbar-thumb {
-    border-radius: 10px; /*滚动条的圆角*/
-    -webkit-box-shadow: inset 0 0 6px rgba(145, 143, 0143, 0.3);
-    background-color: rgb(145, 143, 143); /*滚动条的背景颜色*/
+  ///deep/ .el-table__body-wrapper::-webkit-scrollbar-track {
+  //  border-radius: 10px; /*滚动条的背景区域的圆角*/
+  //  -webkit-box-shadow: inset 0 0 6px rgba(238, 238, 238, 0.3);
+  //  background-color: #eeeeee; /*滚动条的背景颜色*/
+  //}
+  ///deep/ .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  //  border-radius: 10px; /*滚动条的圆角*/
+  //  -webkit-box-shadow: inset 0 0 6px rgba(145, 143, 0143, 0.3);
+  //  background-color: rgb(145, 143, 143); /*滚动条的背景颜色*/
+  //}
+  /deep/ .el-dialog__title {
+    color: #0f58af;
   }
 }
 </style>

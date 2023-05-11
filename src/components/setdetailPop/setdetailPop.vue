@@ -89,4 +89,12 @@
     .dia-i-text {
     }
   }
+  .ditail {
+    /deep/ .el-table__scrollable-x .el-table__body-wrapper {
+      overflow: auto;
+    }
+    /deep/ .el-dialog__title {
+      color: #0f58af;
+    }
+  }
 </style>

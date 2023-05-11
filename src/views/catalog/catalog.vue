@@ -30,7 +30,7 @@
             :props="defaultProps"
             ref="catalogtree"
             node-key="code"
-            :default-expanded-keys="['A', 'B']"
+            :default-expanded-keys="['0']"
             @node-click="handleNodeClick">
         </el-tree>
       </div>
