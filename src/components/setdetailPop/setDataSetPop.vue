@@ -22,7 +22,7 @@
           background
           @size-change="eleheandleSizeChange"
           @current-change="elepageChange"
-          :page-sizes="[10, 20]"
+          :page-sizes="[10, 20, 30, 40]"
           :page-size = this.eletablePageSize
           :current-page = this.eletablePage
           layout="total, sizes, prev, pager, next, jumper"

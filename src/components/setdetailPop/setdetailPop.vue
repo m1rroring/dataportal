@@ -1,6 +1,6 @@
 <template>
   <div class="ditail">
-    <el-dialog title="数据集详情" :visible.sync="data.dialogVisible1" width="62%" color="#0f58af" center>
+    <el-dialog title="数据集详情" :visible.sync="data.dialogVisible1" width="62%" style="color:#0f58af" center>
       <div class="dia-item disflex js-between">
         <div class="dia-i-left">
           <div class="dia-i-label" style="color:#0f58af">数据集名称:</div>

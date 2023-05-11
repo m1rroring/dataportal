@@ -61,7 +61,7 @@
 <!--                    <i :class="['fa', item.url? 'fa-list-img1' : 'fa-list-img']"></i>-->
 <!--                    <div :class="['type-name', item.url && 'blue']">图像</div>-->
 <!--                  </div>-->
-                  <div class="l-opt">
+                  <div class="l-opt" @click="showTablePopup(item.datasetCode,item.datasetName)">
                     <i class="fa fa-list-alt"></i>
                     <div class="type-name">数据集</div>
                   </div>
@@ -105,19 +105,36 @@
       </span>
     </el-dialog>
     <setdetail :data="dialog1Data" />
+    <setdataset :data="elementDialogData" />
   </div>
 </template>
 <script>
   import setdetail from '../../components/setdetailPop/setelementdetailPop.vue'
+  import setdataset from '../../components/setdetailPop/setDataSetPop.vue';
   import {codeAt} from "core-js/internals/string-multibyte";
   export default {
     name: 'catalog',
-    components: {setdetail},
+    components: {setdetail,setdataset},
     data() {
       return {
         total: 0,
         startPoint: 0,
+        startPage: 1,
         pageSize: 10,
+        tableTotal: 0,
+        tablePage: 1,
+        tablePageSize: 10,
+        tableColSet: [],
+        tableDataSet: [],
+        elementDialogVisible: false,
+        elementDialogData: {
+            eleDialogVisible: false,
+            eleDialogTitle: "",
+            eleDialogColData: {},
+            eleDialogData: {},
+            eleDialogDataCount: 0,
+            eleDialogDataUrl: ""
+        },
         isIndeterminate: false,
         activeName: '1',
         dialogVisible: false,
@@ -266,13 +283,33 @@
       handleClick() {
         // this.getTreeInfo(this.activeName);
       },
+      async showTablePopup(datasetCode,datasetName) {
+          await this.$axiosget({
+              url: 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/info',
+          }).then(json => {
+              this.tableTotal = json.count;
+              this.tableColSet = json.fields;
+          });
+          console.log(this.tableColSet);
+          let sentUrl = 'http://218.245.3.121:16081/api/dataset/' + datasetCode + '/data';
+          await this.$axiosget({
+              url: sentUrl,
+              data: {page:this.tablePage,pagesize:this.tablePageSize},
+          }).then(json => {
+              this.tableDataSet = json.data;
+          });
+          console.log(this.tableDataSet);
+          this.popupEle(datasetName,this.tableColSet,this.tableDataSet,this.tableTotal,sentUrl);
+      },
       pageChange(page) {
-        this.startPoint = this.pageSize * (page - 1);
-        this.getRightInfo();
+          this.startPoint = this.pageSize * (page - 1);
+          this.startPage = page;
+          this.getRightInfo();
       },
       handleSizeChange(val) {
         this.pageSize = val;
         this.startPoint = 0;
+        this.startPage = 1;
         this.getRightInfo();
       },
       getItmInfo(itm) {
@@ -406,6 +443,7 @@
                   margin-top: 3px;
                   margin-right: 15px;
                   font-size: 12px;
+                  cursor: pointer;
                   .fa {
                     width: 100%!important;
                     margin: 5px 0 0 0;
