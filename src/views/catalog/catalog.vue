@@ -85,7 +85,7 @@
                     <i class="fa fa-list-alt"></i>
                     <div class="type-name">数据集</div>
                   </div>
-                  <div class="l-opt">
+                  <div class="l-opt" @click="getXMLFile(item.mdId)">
                     <i class="fa fa-file"></i>
                     <div class="type-name">文件</div>
                   </div>
@@ -371,8 +371,11 @@
           this.total = json.totalNumberOfRecords;
           this.rightData = [];
           if (json.recordSet && json.recordSet.record) {
+            console.log(json.recordSet);
             json.recordSet.record.forEach(item => {
               var obj = {};
+              obj['mdId'] = item.mdId;
+              // console.log(obj.mdId);
               item.itemList.items.forEach(v => {
                 obj['kf'] = '开放';
                 obj['gx'] = '共享';
@@ -394,6 +397,24 @@
       },
       handleClick() {
         // this.getTreeInfo(this.activeName);
+      },
+      getXMLFile(id) {
+          console.log(id);
+          this.$axios({
+              url: 'http://218.245.3.121:18082/catalog/rest/catalog/query',
+              method: 'POST',
+              data: {
+                  "username": "guest",
+                  "password": "guest",
+                  "protocolVersion": "4.1",
+                  "databases": {"databaseId": ["healthCheck"]},
+                  "mdId": id,
+                  "recordSetStartPoint": 0,
+                  "recordSetEndPoint": 1
+              }
+          }).then(json => {
+              console.log(json);
+          });
       },
       async showTablePopup(datasetCode,datasetName) {
           await this.$axiosget({
