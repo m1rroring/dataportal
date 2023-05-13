@@ -403,6 +403,7 @@
           this.$axios({
               url: 'http://218.245.3.121:18082/catalog/rest/catalog/query',
               method: 'POST',
+              responseType: 'blob',
               data: {
                   "username": "guest",
                   "password": "guest",
@@ -415,7 +416,8 @@
           }).then(res => {
               console.log(res);
               // const content = res;
-              const blob = new Blob([res]);
+              const blob = new Blob([res],{
+                  type:'appleication/vnd.openxmlformata-officedocument.spreadsheetml.sheet',});
               const fileName = name + '.xml';
               if ('download' in document.createElement('a')) { // 非IE下载
                   const elink = document.createElement('a');

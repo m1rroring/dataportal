@@ -17,6 +17,7 @@ const service = {
       var param = {
           url: params.url.indexOf('http') != -1? params.url : baseUrl + params.url,
           method: (params.method || 'GET'),
+          responseType: (params.responseType || 'json'),
           data: (params.data || null),
       };
       if (param.method == "GET") {
