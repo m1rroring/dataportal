@@ -85,7 +85,7 @@
                     <i class="fa fa-list-alt"></i>
                     <div class="type-name">数据集</div>
                   </div>
-                  <div class="l-opt" @click="getXMLFile(item.mdId)">
+                  <div class="l-opt" @click="getXMLFile(item.mdId,item.datasetName)">
                     <i class="fa fa-file"></i>
                     <div class="type-name">文件</div>
                   </div>
@@ -398,7 +398,7 @@
       handleClick() {
         // this.getTreeInfo(this.activeName);
       },
-      getXMLFile(id) {
+      getXMLFile(id,name) {
           console.log(id);
           this.$axios({
               url: 'http://218.245.3.121:18082/catalog/rest/catalog/query',
@@ -416,7 +416,7 @@
               console.log(res);
               // const content = res;
               const blob = new Blob([res]);
-              const fileName = id + '.xml';
+              const fileName = name + '.xml';
               if ('download' in document.createElement('a')) { // 非IE下载
                   const elink = document.createElement('a');
                   elink.download = fileName;
