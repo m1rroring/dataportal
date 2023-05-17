@@ -42,11 +42,11 @@
 <!--                    <i :class="['fa', item.url? 'fa-list-img1' : 'fa-list-img']"></i>-->
 <!--                    <div :class="['type-name', item.url && 'blue']">图像</div>-->
 <!--                  </div>-->
-                  <div class="l-opt"  @click="showTablePopup(item.datasetCode,item.datasetName)">
+                  <div class="l-opt" @click="showTablePopup(item.datasetCode,item.datasetName)">
                     <i class="fa fa-list-alt"></i>
                     <div class="type-name">数据集</div>
                   </div>
-                  <div class="l-opt">
+                  <div class="l-opt" @click="getXMLFile(item.mdId,item.datasetName)">
                     <i class="fa fa-file"></i>
                     <div class="type-name">文件</div>
                   </div>
@@ -194,6 +194,40 @@
             })
           }
         })
+      },
+      getXMLFile(id,name) {
+        console.log(name);
+        this.$axios({
+            url: 'http://218.245.3.121:18082/catalog/rest/catalog/query',
+            method: 'POST',
+            data: {
+                "username": "guest",
+                "password": "guest",
+                "protocolVersion": "4.1",
+                "databases": {"databaseId": ["healthCheck"]},
+                "mdId": id,
+                "recordSetStartPoint": 0,
+                "recordSetEndPoint": 1
+            }
+        }).then(res => {
+            // console.log(res.recordSet.record[0].data);
+            // const content = res;
+            const blob = new Blob([res.recordSet.record[0].data],{
+                type:'appleication/vnd.openxmlformata-officedocument.spreadsheetml.sheet',});
+            const fileName = name + '.xml';
+            if ('download' in document.createElement('a')) { // 非IE下载
+                const elink = document.createElement('a');
+                elink.download = fileName;
+                elink.style.display = 'none';
+                elink.href = URL.createObjectURL(blob);
+                document.body.appendChild(elink);
+                elink.click();
+                URL.revokeObjectURL(elink.href) ; // 释放URL 对象
+                document.body.removeChild(elink);
+                // } else { // IE10+下载
+                //     navigator.msSaveBlob(blob, fileName)
+            }
+        });
       },
       async showTablePopup(datasetCode,datasetName) {
           await this.$axiosget({

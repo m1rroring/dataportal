@@ -399,11 +399,11 @@
         // this.getTreeInfo(this.activeName);
       },
       getXMLFile(id,name) {
-          console.log(id);
+          console.log(name);
+          // console.log(id);
           this.$axios({
               url: 'http://218.245.3.121:18082/catalog/rest/catalog/query',
               method: 'POST',
-              responseType: 'blob',
               data: {
                   "username": "guest",
                   "password": "guest",
@@ -414,9 +414,9 @@
                   "recordSetEndPoint": 1
               }
           }).then(res => {
-              console.log(res);
+              // console.log(res.recordSet.record[0].data);
               // const content = res;
-              const blob = new Blob([res],{
+              const blob = new Blob([res.recordSet.record[0].data],{
                   type:'appleication/vnd.openxmlformata-officedocument.spreadsheetml.sheet',});
               const fileName = name + '.xml';
               if ('download' in document.createElement('a')) { // 非IE下载
