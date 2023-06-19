@@ -396,7 +396,7 @@
                     position: absolute;
                     top: -14px;
                     left: 8px;
-                    background: url('../../assets/images/kubiao1.png') no-repeat;
+                    background: url('../../assets/images/kubiao2.png') no-repeat;
                     background-size: 100% 100%;
                   }
                   .fa-file:before {
@@ -406,7 +406,7 @@
                     top: -14px;
                     left: 8px;
                     position: absolute;
-                    background: url('../../assets/images/webjian2.png') no-repeat;
+                    background: url('../../assets/images/webjian1.png') no-repeat;
                     background-size: 100% 100%;
                   }
                   .fa-folder:before {

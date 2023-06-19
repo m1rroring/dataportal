@@ -1,6 +1,6 @@
 <template>
   <div class="ditaildialog">
-    <el-dialog :title="data.eleDialogTitle" :visible.sync="data.eleDialogVisible" width="62%" color="#0f58af" center>
+    <el-dialog :title="data.eleDialogTitle" :visible.sync="data.eleDialogVisible" width="75%" color="#0f58af" center>
       <el-table
         :data="data.eleDialogData"
         stripe
@@ -120,6 +120,7 @@
   //}
   /deep/ .el-dialog__title {
     color: #0f58af;
+    font-size: 20px;
   }
 }
 </style>

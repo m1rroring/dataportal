@@ -161,7 +161,8 @@ export default {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+    //color: #2c3e50;
+    color: #f4f5f9;
     width: 100%;
   }
   #App>.content {
@@ -178,10 +179,10 @@ export default {
   .header {
     background-image: linear-gradient(to right, #f3fdfc , #fbfbfb);
     .head {
-      width: 50%;
-      height: 150px;
+      width: 100%;
+      height: 1px;
       margin: 0 auto;
-      background: url('./assets/banner.png') no-repeat;
+      //background: url('./assets/banner.png') no-repeat;
       background-size: 100% 100%;
     }
   }

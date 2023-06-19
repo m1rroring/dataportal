@@ -1,23 +1,23 @@
 <template>
-  <div class="home">
-    <div class="data-box disflex js-around">
-      <div v-for="(item, index) in dataList" :class="['data-item', 'data-item-' + index]" :key="index">
-        <span class="title">{{item.title}}</span>
-        <span class="num">{{item.value}}{{item.unit}}</span>
-      </div>
-    </div>
-    <div class="visit-box disflex js-around">
-      <div class="visit-item" v-for="(item, index) in visitList" :key="index">
-        <div class="top">
-          <div class="title">{{item.title}}</div>
-          <span>（数据集:{{item.num}}个 数据目录:{{item.total}}个）</span>
+    <div class="home">
+      <div class="data-box disflex js-around">
+        <div v-for="(item, index) in dataList" :class="['data-item', 'data-item-' + index]" :key="index">
+          <span class="title">{{item.title}}</span>
+          <span class="num">{{item.value}}{{item.unit}}</span>
         </div>
-        <ul>
-          <li v-for="(v, i) in item.data" :key="i"><a href="#">{{v}}</a></li>
-        </ul>
+      </div>
+      <div class="visit-box disflex js-around">
+        <div class="visit-item" v-for="(item, index) in visitList" :key="index">
+          <div class="top">
+            <div class="title">{{item.title}}</div>
+            <span>（数据集:{{item.num}}个 数据目录:{{item.total}}个）</span>
+          </div>
+          <ul>
+            <li v-for="(v, i) in item.data" :key="i"><a href="#">{{v}}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 <script>
   
@@ -49,6 +49,18 @@
   }
 </script>
 <style scoped lang="scss">
+  .home {
+    /*渐变的背景色*/
+    /*height: 100vh;
+    background-image: linear-gradient(to bottom right, #FC466B, #3F5EF8);
+    overflow: hidden;*/
+    /*背景图*/
+    background: url("../../assets/bj.jpg");
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-size: 100% 100%;
+  }
   .data-box {
     padding-top: 20px;
     .data-item {
@@ -64,11 +76,11 @@
       border: 1px solid rgba(100, 100, 100, .1);
       .title {
         color: #050505;
-        font-size: 16px;
+        font-size: 18px;
       }
       .num {
-        color: #354f8a;
-        font-size: 22px;
+        color: #3385ff;
+        font-size: 24px;
       }
     }
     .data-item-0 {background: url('../../assets/images/1.png') no-repeat;}
@@ -88,16 +100,17 @@
         overflow: hidden;
         .title {
           border-left: 3px solid #6894d1;
-          color: #2b6893;
+          //color: #2b6893;
+          color: #3385ff;
           cursor: pointer;
           font-weight: bold;
-          font-size: 16px;
+          font-size: 18px;
           line-height: 16px;
           text-indent: 12px;
           float: left;
           span {
             color: #666;
-            font-size: 12px;
+            font-size: 14px;
             display: block;
             float: left;
             margin-top: -2px;
