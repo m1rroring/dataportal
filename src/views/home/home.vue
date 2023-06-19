@@ -57,7 +57,7 @@
     /*背景图*/
     background: url("../../assets/bj.jpg");
     width: 100%;
-    height: 100%;
+    height: 800px;
     position: fixed;
     background-size: 100% 100%;
   }
