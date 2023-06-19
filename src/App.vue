@@ -184,7 +184,7 @@ export default {
     background-image: linear-gradient(to right, #f3fdfc , #fbfbfb);
     .head {
       width: 100%;
-      height: 1px;
+      height: 150px;
       margin: 0 auto;
       //background: url('./assets/banner.png') no-repeat;
       background-size: 100% 100%;
