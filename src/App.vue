@@ -62,6 +62,10 @@ export default {
     this.navData.forEach(item => {
         item.show = true;
     })
+
+  },
+  updated() {
+    window.scroll(0, 0);
   },
   methods: {
     loginUser() {
