@@ -75,7 +75,8 @@
       background: #fff;
       float: left;
       background-position: 16px 9px!important;
-      border: 1px solid rgba(100, 100, 100, .1);
+      //border: 1px solid rgba(100, 100, 100, .1);
+      border: none;
       .title {
         color: #050505;
         font-size: 26px;
