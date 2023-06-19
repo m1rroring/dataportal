@@ -493,7 +493,8 @@
         height: 100%;
       }
       .cr-title:hover {
-        border-left: 3px solid #1067ab;;
+        //border-left: 3px solid #1067ab;
+        border-left: 3px solid #0e419c;
       }
       .cr-title {
         color: #999;
@@ -528,7 +529,8 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 font-size: 16px;
-                color: #1067ab;
+                //color: #1067ab;
+                color: #0e419c;
                 transition: .5s;
                 margin-top: 5px;
               }
@@ -666,7 +668,8 @@
                     background-size: 100% 100%;
                   }
                   .blue {
-                    color: #1067ab;
+                    //color: #1067ab;
+                    color: #0e419c;
                   }
                   .type-name {
                     width: 100%!important;

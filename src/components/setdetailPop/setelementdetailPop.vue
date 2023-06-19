@@ -82,14 +82,14 @@ export default {
   .dia-i-text {
      margin-left: 20px;
   }
-    .ditail {
-        /deep/ .el-table__scrollable-x .el-table__body-wrapper {
-            overflow: auto;
-        }
-        /deep/ .el-dialog__title {
-            color: #0f58af;
-            font-size: 20px;
-        }
+}
+.ditail {
+    /deep/ .el-table__scrollable-x .el-table__body-wrapper {
+        overflow: auto;
+    }
+    /deep/ .el-dialog__title {
+        color: #0f58af;
+        font-size: 20px;
     }
 }
 </style>
