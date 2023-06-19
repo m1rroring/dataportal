@@ -170,7 +170,7 @@ export default {
     width: 100%;
   }
   #App>.content {
-    height: calc(100% - 116px);
+    height: calc(100% - 300px);
   }
   .footer {
     height: 30px;
