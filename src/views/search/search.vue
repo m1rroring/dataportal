@@ -149,7 +149,7 @@
         var arr = [];
         ele.forEach(v => {
           arr.push({
-            "accessPoint": v,"comparisonOperator":"Like","value": (this.input || '')
+            "accessPoint": v,"comparisonOperator":"Like","value": (this.input || '。')
           })
         })
         this.$axios({
